@@ -32,7 +32,6 @@ function inputTeamMember() {
             }
         ])
         .then((data) => {
-            console.log(data.role);
             if (data.role === "Engineer") {
                 inquirer.prompt([
                     {
@@ -41,8 +40,8 @@ function inputTeamMember() {
                         message: "Enter Github username: "
                     }
                 ])
-                    .then((data) => {
-                        let newMember = new Engineer(data.name, data.id, data.email, data.github);
+                    .then((roleField) => {
+                        let newMember = new Engineer(data.name, data.id, data.email, roleField.github);
                         teamArray.push(newMember);
                         addUser();
                     })
@@ -55,8 +54,8 @@ function inputTeamMember() {
                         message: "Enter college you attended: "
                     }
                 ])
-                    .then((data) => {
-                        let newMember = new Intern(data.name, data.id, data.email, data.school);
+                    .then((roleField) => {
+                        let newMember = new Intern(data.name, data.id, data.email, roleField.school);
                         teamArray.push(newMember);
                         addUser();
                     })
@@ -70,8 +69,8 @@ function inputTeamMember() {
                         message: "Enter office number: "
                     }
                 ])
-                    .then((data) => {
-                        let newMember = new Manager(data.name, data.id, data.email, data.office);
+                    .then((roleField) => {
+                        let newMember = new Manager(data.name, data.id, data.email, roleField.office);
                         teamArray.push(newMember);
                         addUser();
                     })
@@ -88,7 +87,6 @@ function addUser() {
             name: "newMember"
         }
     ]).then((data) => {
-        console.log(data.newMember);
         if (data.newMember === true) {
             inputTeamMember();
         }
@@ -123,14 +121,14 @@ function generateHTML() {
     `
     fs.writeFile('./dist/team.html', startHtml, (err) =>
 
-        console.error(err)
+        err ? console.error(err) : console.log(`Start HTML Generate`)
     )
 
     for (i = 0; i < teamArray.length; i++) {
         let identify = teamArray[i].getRole();
-        let memberEmail=teamArray[i].getEmail();
-        let memberId=teamArray[i].getId();
-        let memberName=teamArray[i].getName();
+        let memberEmail = teamArray[i].getEmail();
+        let memberId = teamArray[i].getId();
+        let memberName = teamArray[i].getName();
 
         if (identify === "Manager") {
             let memberCard = `
@@ -142,7 +140,7 @@ function generateHTML() {
                 <div class="card-body bg-white text-dark">
                   <ul>
                     <li>ID: ${memberId}</li>
-                    <li>Email: ${memberEmail} </li>
+                    <li><a href="${memberEmail}?subject=Subject&body=message%20goes%20here">Email: ${memberEmail}</a></li>
                     <li>Office: ${teamArray[i].getOffice()}</li>
                   </ul>
                 </div>
@@ -152,7 +150,7 @@ function generateHTML() {
             `
             fs.appendFile('./dist/team.html', memberCard, (err) =>
 
-                console.error(err)
+                err ? console.error(err) : console.log(`Team member added successfully`)
             )
         }
         else if (identify === "Engineer") {
@@ -165,8 +163,8 @@ function generateHTML() {
                 <div class="card-body bg-white text-dark">
                   <ul>
                     <li>ID: ${memberId}</li>
-                    <li>Email: ${memberEmail} </li>
-                    <li>Github: ${teamArray[i].getGithub()}</li>
+                    <li><a href="${memberEmail}?subject=Subject&body=message%20goes%20here">Email: ${memberEmail}</a></li>
+                    <li><a href="https://github.com/${teamArray[i].getGithub()}">Github: ${teamArray[i].getGithub()}</a></li>
                   </ul>
                 </div>
               </div>
@@ -175,7 +173,7 @@ function generateHTML() {
             `
             fs.appendFile('./dist/team.html', memberCard, (err) =>
 
-                console.error(err)
+                err ? console.error(err) : console.log(`Team member added`)
             )
         }
         else {
@@ -188,7 +186,7 @@ function generateHTML() {
                 <div class="card-body bg-white text-dark">
                   <ul>
                     <li>ID: ${memberId}</li>
-                    <li>Email: ${memberEmail} </li>
+                    <li><a href="${memberEmail}?subject=Subject&body=message%20goes%20here">Email: ${memberEmail}</a></li>
                     <li>School: ${teamArray[i].getSchool()}</li>
                   </ul>
                 </div>
@@ -198,7 +196,7 @@ function generateHTML() {
             `
             fs.appendFile('./dist/team.html', memberCard, (err) =>
 
-                console.error(err)
+                err ? console.error(err) : console.log(`Team member added`)
             )
         }
 
@@ -213,8 +211,8 @@ function generateHTML() {
     `
     fs.appendFile('./dist/team.html', endHtml, (err) =>
 
-    err ? console.error(err) : console.log(`HTML page generated successfully`)
-)
+        err ? console.error(err) : console.log(`HTML page generated successfully`)
+    )
 }
 
 inputTeamMember();
