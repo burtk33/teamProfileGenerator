@@ -10,14 +10,14 @@ describe("Engineer subclass", () => {
 
     describe("getGithub", () => {
         it("getGithub function to return engineer Github username", () => {
-            const result = new Engineer().getGithub(data);
+            const result = new Engineer(data).getGithub();
             expect(result).toEqual('bobert33');
         });
     })
 
     describe("getRole", () => {
         it("getRole function to return Engineer", () => {
-            const result = new Engineer().getRole(data);
+            const result = new Engineer(data).getRole();
             expect(result).toEqual('Engineer');
         });
     })

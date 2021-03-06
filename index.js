@@ -121,19 +121,97 @@ function generateHTML() {
       <div class="container">
         <div class="row">
     `
-    fs.writeFile('/dist/team.html', startHtml, (err) =>
+    fs.writeFile('./dist/team.html', startHtml, (err) =>
 
-        err ? console.error(err) : console.log('HTML page generated succesfully')
+        console.error(err)
     )
 
-    for(i=0; i<teamArray.length; i++){
-        let identify=teamArray[i].role;
+    for (i = 0; i < teamArray.length; i++) {
+        let identify = teamArray[i].getRole();
 
-        if(identify==="Manager"){
-            
+        if (identify === "Manager") {
+            let memberCard = `
+            <div class="col-sm-4">
+            <div class="card my-4" style="width: 18rem;">
+              <div class="card-header text-white bg-primary">
+                <h4 class="card-title bg-primary text-white">${teamArray[i].name}</h4>
+                <h6 class="card-subtitle mb-2 bg-primary text-white">${identify}</h6>
+                <div class="card-body bg-white text-dark">
+                  <ul>
+                    <li>ID: ${teamArray[i].id}</li>
+                    <li>Email: ${teamArray[i].email} </li>
+                    <li>Office: ${teamArray[i].office}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+            `
+            fs.appendFile('./dist/team.html', memberCard, (err) =>
+
+                err ? console.error(err) : console.log(`Team member ${i} added succesfully`)
+            )
         }
-    }
+        else if (identify === "Engineer") {
+            let memberCard = `
+            <div class="col-sm-4">
+            <div class="card my-4" style="width: 18rem;">
+              <div class="card-header text-white bg-primary">
+                <h4 class="card-title bg-primary text-white">${teamArray[i].name}</h4>
+                <h6 class="card-subtitle mb-2 bg-primary text-white">${identify}</h6>
+                <div class="card-body bg-white text-dark">
+                  <ul>
+                    <li>ID: ${teamArray[i].id}</li>
+                    <li>Email: ${teamArray[i].email} </li>
+                    <li>Github: ${teamArray[i].github}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+            `
+            fs.appendFile('./dist/team.html', memberCard, (err) =>
 
+                err ? console.error(err) : console.log(`Team member ${i} added succesfully`)
+            )
+        }
+        else {
+            let memberCard = `
+            <div class="col-sm-4">
+            <div class="card my-4" style="width: 18rem;">
+              <div class="card-header text-white bg-primary">
+                <h4 class="card-title bg-primary text-white">${teamArray[i].name}</h4>
+                <h6 class="card-subtitle mb-2 bg-primary text-white">${identify}</h6>
+                <div class="card-body bg-white text-dark">
+                  <ul>
+                    <li>ID: ${teamArray[i].id}</li>
+                    <li>Email: ${teamArray[i].email} </li>
+                    <li>School: ${teamArray[i].school}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+            `
+            fs.appendFile('./dist/team.html', memberCard, (err) =>
+
+                err ? console.error(err) : console.log(`Team member ${i} added succesfully`)
+            )
+        }
+
+    }
+    const endHtml = `
+    </div>
+  </div>
+
+</body>
+
+</html>
+    `
+    fs.appendFile('./dist/team.html', endHtml, (err) =>
+
+    err ? console.error(err) : console.log(`HTML page generated successfully`)
+)
 }
 
 inputTeamMember();
