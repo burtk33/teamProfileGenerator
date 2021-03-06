@@ -98,4 +98,42 @@ function addUser() {
     });
 }
 
+function generateHTML() {
+    const startHtml = `
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+      <meta charset="UTF-8">
+      <title>Team Profile Generator</title>
+    
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    
+    </head>
+    
+    <body>
+      <header class="navbar navbar-dark bg-dark">
+        <div class="container justify-content-center text-white ms-auto">
+          <h1>Team Profile Generator</h1>
+        </div>
+      </header>
+      <div class="container">
+        <div class="row">
+    `
+    fs.writeFile('/dist/team.html', startHtml, (err) =>
+
+        err ? console.error(err) : console.log('HTML page generated succesfully')
+    )
+
+    for(i=0; i<teamArray.length; i++){
+        let identify=teamArray[i].role;
+
+        if(identify==="Manager"){
+            
+        }
+    }
+
+}
+
 inputTeamMember();
