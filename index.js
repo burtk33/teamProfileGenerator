@@ -41,8 +41,8 @@ function inputTeamMember() {
                         message: "Enter Github username: "
                     }
                 ])
-                    .then((github) => {
-                        let newMember = new Engineer(data.name, data.id, data.email, github);
+                    .then((data) => {
+                        let newMember = new Engineer(data.name, data.id, data.email, data.github);
                         teamArray.push(newMember);
                         addUser();
                     })
@@ -55,8 +55,8 @@ function inputTeamMember() {
                         message: "Enter college you attended: "
                     }
                 ])
-                    .then((school) => {
-                        let newMember = new Intern(data.name, data.id, data.email, school);
+                    .then((data) => {
+                        let newMember = new Intern(data.name, data.id, data.email, data.school);
                         teamArray.push(newMember);
                         addUser();
                     })
@@ -70,8 +70,8 @@ function inputTeamMember() {
                         message: "Enter office number: "
                     }
                 ])
-                    .then((office) => {
-                        let newMember = new Engineer(data.name, data.id, data.email, office);
+                    .then((data) => {
+                        let newMember = new Manager(data.name, data.id, data.email, data.office);
                         teamArray.push(newMember);
                         addUser();
                     })
@@ -128,19 +128,22 @@ function generateHTML() {
 
     for (i = 0; i < teamArray.length; i++) {
         let identify = teamArray[i].getRole();
+        let memberEmail=teamArray[i].getEmail();
+        let memberId=teamArray[i].getId();
+        let memberName=teamArray[i].getName();
 
         if (identify === "Manager") {
             let memberCard = `
             <div class="col-sm-4">
             <div class="card my-4" style="width: 18rem;">
               <div class="card-header text-white bg-primary">
-                <h4 class="card-title bg-primary text-white">${teamArray[i].name}</h4>
+                <h4 class="card-title bg-primary text-white">${memberName}</h4>
                 <h6 class="card-subtitle mb-2 bg-primary text-white">${identify}</h6>
                 <div class="card-body bg-white text-dark">
                   <ul>
-                    <li>ID: ${teamArray[i].id}</li>
-                    <li>Email: ${teamArray[i].email} </li>
-                    <li>Office: ${teamArray[i].office}</li>
+                    <li>ID: ${memberId}</li>
+                    <li>Email: ${memberEmail} </li>
+                    <li>Office: ${teamArray[i].getOffice()}</li>
                   </ul>
                 </div>
               </div>
@@ -149,7 +152,7 @@ function generateHTML() {
             `
             fs.appendFile('./dist/team.html', memberCard, (err) =>
 
-                err ? console.error(err) : console.log(`Team member ${i} added succesfully`)
+                console.error(err)
             )
         }
         else if (identify === "Engineer") {
@@ -157,13 +160,13 @@ function generateHTML() {
             <div class="col-sm-4">
             <div class="card my-4" style="width: 18rem;">
               <div class="card-header text-white bg-primary">
-                <h4 class="card-title bg-primary text-white">${teamArray[i].name}</h4>
+                <h4 class="card-title bg-primary text-white">${memberName}</h4>
                 <h6 class="card-subtitle mb-2 bg-primary text-white">${identify}</h6>
                 <div class="card-body bg-white text-dark">
                   <ul>
-                    <li>ID: ${teamArray[i].id}</li>
-                    <li>Email: ${teamArray[i].email} </li>
-                    <li>Github: ${teamArray[i].github}</li>
+                    <li>ID: ${memberId}</li>
+                    <li>Email: ${memberEmail} </li>
+                    <li>Github: ${teamArray[i].getGithub()}</li>
                   </ul>
                 </div>
               </div>
@@ -172,7 +175,7 @@ function generateHTML() {
             `
             fs.appendFile('./dist/team.html', memberCard, (err) =>
 
-                err ? console.error(err) : console.log(`Team member ${i} added succesfully`)
+                console.error(err)
             )
         }
         else {
@@ -180,13 +183,13 @@ function generateHTML() {
             <div class="col-sm-4">
             <div class="card my-4" style="width: 18rem;">
               <div class="card-header text-white bg-primary">
-                <h4 class="card-title bg-primary text-white">${teamArray[i].name}</h4>
+                <h4 class="card-title bg-primary text-white">${memberName}</h4>
                 <h6 class="card-subtitle mb-2 bg-primary text-white">${identify}</h6>
                 <div class="card-body bg-white text-dark">
                   <ul>
-                    <li>ID: ${teamArray[i].id}</li>
-                    <li>Email: ${teamArray[i].email} </li>
-                    <li>School: ${teamArray[i].school}</li>
+                    <li>ID: ${memberId}</li>
+                    <li>Email: ${memberEmail} </li>
+                    <li>School: ${teamArray[i].getSchool()}</li>
                   </ul>
                 </div>
               </div>
@@ -195,7 +198,7 @@ function generateHTML() {
             `
             fs.appendFile('./dist/team.html', memberCard, (err) =>
 
-                err ? console.error(err) : console.log(`Team member ${i} added succesfully`)
+                console.error(err)
             )
         }
 

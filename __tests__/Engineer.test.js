@@ -1,23 +1,23 @@
 const Engineer = require("../lib/Engineer.js");
 const data = {
     name: 'Robert Bob',
-    github: 'bobert33',
+    id: 2,
     email: 'bob@bob.com',
-    role: 'Employee'
+    github: 'bobert45'
 }
 
 describe("Engineer subclass", () => {
 
     describe("getGithub", () => {
         it("getGithub function to return engineer Github username", () => {
-            const result = new Engineer(data).getGithub();
-            expect(result).toEqual('bobert33');
+            const result = new Engineer(data.name, data.id, data.email, data.github).getGithub();
+            expect(result).toEqual('bobert45');
         });
     })
 
     describe("getRole", () => {
         it("getRole function to return Engineer", () => {
-            const result = new Engineer(data).getRole();
+            const result = new Engineer(data.name, data.id, data.email, data.github).getRole();
             expect(result).toEqual('Engineer');
         });
     })
