@@ -119,7 +119,7 @@ function generateHTML() {
       <div class="container">
         <div class="row">
     `
-    fs.writeFile('./dist/team.html', startHtml, (err) =>
+    fs.writeFileSync('./dist/team.html', startHtml, (err) =>
 
         err ? console.error(err) : console.log(`Start HTML Generate`)
     )
@@ -140,7 +140,7 @@ function generateHTML() {
                 <div class="card-body bg-white text-dark">
                   <ul>
                     <li>ID: ${memberId}</li>
-                    <li><a href="${memberEmail}?subject=Subject&body=message%20goes%20here">Email: ${memberEmail}</a></li>
+                    <li><a href="mailto:${memberEmail}">Email: ${memberEmail}</a></li>
                     <li>Office: ${teamArray[i].getOffice()}</li>
                   </ul>
                 </div>
@@ -150,7 +150,7 @@ function generateHTML() {
             `
             fs.appendFile('./dist/team.html', memberCard, (err) =>
 
-                err ? console.error(err) : console.log(`Team member added successfully`)
+                err ? console.error(err) : console.log(`Team member added`)
             )
         }
         else if (identify === "Engineer") {
@@ -163,7 +163,7 @@ function generateHTML() {
                 <div class="card-body bg-white text-dark">
                   <ul>
                     <li>ID: ${memberId}</li>
-                    <li><a href="${memberEmail}?subject=Subject&body=message%20goes%20here">Email: ${memberEmail}</a></li>
+                    <li><a href="mailto:${memberEmail}">Email: ${memberEmail}</a></li>
                     <li><a href="https://github.com/${teamArray[i].getGithub()}">Github: ${teamArray[i].getGithub()}</a></li>
                   </ul>
                 </div>
@@ -186,7 +186,7 @@ function generateHTML() {
                 <div class="card-body bg-white text-dark">
                   <ul>
                     <li>ID: ${memberId}</li>
-                    <li><a href="${memberEmail}?subject=Subject&body=message%20goes%20here">Email: ${memberEmail}</a></li>
+                    <li><a href="mailto:${memberEmail}">Email: ${memberEmail}</a></li>
                     <li>School: ${teamArray[i].getSchool()}</li>
                   </ul>
                 </div>

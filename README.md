@@ -16,6 +16,8 @@ A node terminal application that generates an HTML page based on user input
 ## Installation Instructions
 Install Node.js and node package modules: jest, inquirer
 
+[Walkthrough Video](https://youtu.be/q19JN9sruRQ)
+
 ## Usage
 Used to generate an HTML page with team member cards based on terminal input information
 
